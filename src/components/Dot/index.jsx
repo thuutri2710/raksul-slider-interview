@@ -1,5 +1,5 @@
 import React from 'react';
 
-const Dot = ()=>{
-    return <div>d</div>
+export const Dot = ()=>{
+    return <div style={{width:30,height:30,backgroundColor:#2c5bbe}}>d</div>
 }

@@ -8,7 +8,13 @@ function App() {
 
   return (
     <div className="App">
-      <Slider/>
+      <Slider>
+        <div>helo</div>
+        <div>helo</div>
+        <div>helo</div>
+        <div>helo</div>
+        <div>helo</div>
+      </Slider>
     </div>
   )
 }

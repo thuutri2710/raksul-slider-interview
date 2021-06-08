@@ -1,7 +1,15 @@
-import React from 'react';
+import React from 'react'
+import { Dot } from '@/components/Dots'
 
-const Slider= ()=>{
-    return <div>f</div>
+const Slider = ({ children }) => {
+  return (
+    <div>
+      {/* {children.filter((c, i) => i % 2)} */}
+      {children.map((c) => (
+        <Dot />
+      ))}
+    </div>
+  )
 }
 
-export default Slider;
+export default Slider
