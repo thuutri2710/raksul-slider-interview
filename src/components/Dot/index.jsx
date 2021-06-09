@@ -1,4 +1,6 @@
 import React from 'react'
+import classNames from 'classnames/bind'
+import { css } from 'linaria'
 
 const noop = () => {}
 
@@ -23,7 +25,16 @@ export const Dot = ({ key, active = false, onClick = noop }) => {
 
 export const Dots = ({ number, active, onClick = noop }) => {
   return (
-    <ul style={{ listStyle: 'none' }}>
+    <ul
+      className={classNames(css`
+        position: absolute;
+        width: 100%;
+        bottom: -58px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      `)}
+    >
       {Array(number)
         .fill(0)
         .map((d, i) => (
