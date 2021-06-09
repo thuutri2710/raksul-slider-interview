@@ -13,6 +13,7 @@ const NextButton = ({ onClick, className }) => {
           right: -70px;
           width: 0;
           height: 0;
+          cursor: pointer;
           border-style: solid;
           border-width: 28px 0 28px 47px;
           border-color: transparent transparent transparent #000;

@@ -11,6 +11,7 @@ const PrevButton = ({ onClick, className }) => {
         left: -70px;
         width: 0;
         height: 0;
+        cursor: pointer;
         border-style: solid;
         border-width: 28px 47px 28px 0;
         border-color: transparent #000 transparent transparent;

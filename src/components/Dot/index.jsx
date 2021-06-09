@@ -43,7 +43,7 @@ export const Dots = ({ number, active, onClick = noop }) => {
             active={active === i}
             onClick={() => {
               if (active !== i) {
-                onClick(i)
+                onClick(i + 1)
               }
             }}
           />
