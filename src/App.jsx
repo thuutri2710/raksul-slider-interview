@@ -13,13 +13,11 @@ function App() {
         className={css`
           margin-top: 100px !important;
           max-width: 1080px;
-          height: 100%;
         `}
       >
         <div
           className={css`
             display: flex;
-            height: 100%;
             justify-content: center;
             align-items: center;
           `}
@@ -29,7 +27,6 @@ function App() {
         <div
           className={css`
             display: flex;
-            height: 100%;
             justify-content: center;
             align-items: center;
           `}
@@ -39,7 +36,6 @@ function App() {
         <div
           className={css`
             display: flex;
-            height: 100%;
             justify-content: center;
             align-items: center;
           `}
@@ -49,7 +45,6 @@ function App() {
         <div
           className={css`
             display: flex;
-            height: 100%;
             justify-content: center;
             align-items: center;
           `}
@@ -59,7 +54,6 @@ function App() {
         <div
           className={css`
             display: flex;
-            height: 100%;
             justify-content: center;
             align-items: center;
           `}

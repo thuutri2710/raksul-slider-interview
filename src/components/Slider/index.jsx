@@ -79,10 +79,11 @@ const Slider = ({ children, className, style }) => {
           onTransitionEnd={() => shiftCircular()}
           className={css`
             display: flex;
+            align-items: stretch;
             position: relative;
             height: 100%;
-            top: 0%;
-            left: 0%;
+            top: 0;
+            left: 0;
             margin-left: auto;
             margin-right: auto;
           `}
@@ -100,7 +101,6 @@ const Slider = ({ children, className, style }) => {
                 flexShrink: 0,
                 border: '1px solid #000',
                 backgroundColor: '#cfe2f3',
-                height: '100%',
               }}
             >
               {React.cloneElement(c, {
