@@ -9,7 +9,7 @@ const NextButton = ({ onClick, className }) => {
         className,
         css`
           position: absolute;
-          top: min(calc(50% - 27px), 100px);
+          top: max(calc(50% - 27px), 100px);
           right: -70px;
           width: 0;
           height: 0;

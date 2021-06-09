@@ -13,21 +13,23 @@ function App() {
         className={css`
           margin-top: 100px !important;
           max-width: 1080px;
-          height: 200px;
+          height: 100%;
         `}
       >
         <div
           className={css`
             display: flex;
+            height: 100%;
             justify-content: center;
             align-items: center;
           `}
         >
-          1
+          <img src="https://cdn.pixabay.com/photo/2018/11/14/20/50/hd-3816045_960_720.jpg" />
         </div>
         <div
           className={css`
             display: flex;
+            height: 100%;
             justify-content: center;
             align-items: center;
           `}
@@ -37,6 +39,7 @@ function App() {
         <div
           className={css`
             display: flex;
+            height: 100%;
             justify-content: center;
             align-items: center;
           `}
@@ -46,6 +49,7 @@ function App() {
         <div
           className={css`
             display: flex;
+            height: 100%;
             justify-content: center;
             align-items: center;
           `}
@@ -55,6 +59,7 @@ function App() {
         <div
           className={css`
             display: flex;
+            height: 100%;
             justify-content: center;
             align-items: center;
           `}
