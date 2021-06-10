@@ -60,6 +60,33 @@ function App() {
         >
           5
         </div>
+        <div
+          className={css`
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          `}
+        >
+          6
+        </div>
+        <div
+          className={css`
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          `}
+        >
+          7
+        </div>
+        <div
+          className={css`
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          `}
+        >
+          8
+        </div>
       </Slider>
     </div>
   )

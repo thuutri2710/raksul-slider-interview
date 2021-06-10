@@ -14,7 +14,7 @@ const Slider = ({ children, className, style }) => {
   const [distanceDragX, setDistanceDragX] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
   const startDragX = useRef()
-  const threshold = 0.6 * widthSlide
+  const threshold = 0.2 * widthSlide
 
   const translateX = -(widthSlide + 16) * activeElement - 8 + distanceDragX
 
@@ -101,10 +101,10 @@ const Slider = ({ children, className, style }) => {
         `
       )}
       style={{
-        margin: `0 ${widthSlide > 500 ? 75 : 5}px`,
+        margin: `0 ${window.innerWidth > 650 ? 75 : 5}px`,
       }}
     >
-      {widthSlide > 500 ? <PrevButton onClick={onPrev} /> : null}
+      {window.innerWidth > 650 ? <PrevButton onClick={onPrev} /> : null}
       <div
         ref={slideRef}
         className={css`
@@ -132,7 +132,7 @@ const Slider = ({ children, className, style }) => {
           `}
           style={{
             transition:
-              count !== 2 ? '' : shouldShift ? 'left 1ms ease-out' : 'all .5s',
+              count !== 2 ? '' : shouldShift ? 'left 1ms ease-out' : 'all .4s',
             transform: `translate3d(${translateX}px,0,0)`,
           }}
         >
@@ -171,7 +171,7 @@ const Slider = ({ children, className, style }) => {
         onClick={onSelectDot}
         active={(activeElement + children.length - 1) % children.length}
       />
-      {widthSlide > 500 ? <NextButton onClick={onNext} /> : null}
+      {window.innerWidth > 650 ? <NextButton onClick={onNext} /> : null}
     </div>
   )
 }
