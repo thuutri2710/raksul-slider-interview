@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState, useCallback } from 'react'
 import { Dots } from '@/components/Dot'
 import PrevButton from '@/components/PrevButton'
 import NextButton from '@/components/NextButton'
@@ -11,10 +11,12 @@ const Slider = ({ children, className, style }) => {
   const slideRef = useRef(-1)
   const [shouldShift, setShouldShift] = useState(false)
   const [count, setCount] = useState(0)
+  const [distanceDragX, setDistanceDragX] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
+  const startDragX = useRef()
+  const threshold = 0.7 * widthSlide
 
-  const transformStyle = `translate3d(${
-    -(widthSlide + 16) * activeElement - 8
-  }px,0,0)`
+  const translateX = -(widthSlide + 16) * activeElement - 8 + distanceDragX
 
   const newChildren = useMemo(() => [
     children[children.length - 1],
@@ -46,6 +48,50 @@ const Slider = ({ children, className, style }) => {
     setActiveElement(index)
   }
 
+  const onNext = () => {
+    setShouldShift(false)
+    if (activeElement < newChildren.length - 1) {
+      setActiveElement(activeElement + 1)
+    } else {
+      setActiveElement(newChildren.length - 1)
+    }
+  }
+
+  const onPrev = () => {
+    setShouldShift(false)
+    if (activeElement > 1) {
+      setActiveElement(activeElement - 1)
+    } else {
+      setActiveElement(0)
+    }
+  }
+
+  const onMouseMove = useCallback((e) => {
+    setDistanceDragX(e.clientX - startDragX.current)
+  }, [])
+
+  const onMouseDown = (e) => {
+    setIsDragging(true)
+    startDragX.current = e.clientX
+    document.addEventListener('mousemove', onMouseMove)
+  }
+
+  const onMouseUp = (e) => {
+    if (isDragging) {
+      startDragX.current = 0
+      setDistanceDragX(0)
+      if (distanceDragX < -threshold) {
+        onNext()
+      } else if (distanceDragX > threshold) {
+        onPrev()
+      } else {
+        setShouldShift(false)
+      }
+      document.removeEventListener('mousemove', onMouseMove)
+    }
+    setIsDragging(false)
+  }
+
   return (
     <div
       className={classNames(
@@ -56,16 +102,7 @@ const Slider = ({ children, className, style }) => {
         `
       )}
     >
-      <PrevButton
-        onClick={() => {
-          setShouldShift(false)
-          if (activeElement > 1) {
-            setActiveElement(activeElement - 1)
-          } else {
-            setActiveElement(0)
-          }
-        }}
-      />
+      <PrevButton onClick={onPrev} />
       <div
         ref={slideRef}
         className={css`
@@ -76,11 +113,15 @@ const Slider = ({ children, className, style }) => {
         `}
       >
         <div
+          onMouseDown={onMouseDown}
+          onMouseUp={onMouseUp}
+          onMouseLeave={onMouseUp}
           onTransitionEnd={() => shiftCircular()}
           className={css`
             display: flex;
             align-items: stretch;
             position: relative;
+            cursor: pointer;
             height: 100%;
             top: 0;
             left: 0;
@@ -90,10 +131,10 @@ const Slider = ({ children, className, style }) => {
           style={{
             transition:
               count !== 2 ? '' : shouldShift ? 'left .2s ease-out' : 'all 1s',
-            transform: transformStyle,
+            transform: `translate3d(${translateX}px,0,0)`,
           }}
         >
-          {newChildren.map((c) => (
+          {newChildren.map((c, i) => (
             <div
               style={{
                 width: `${widthSlide}px`,
@@ -101,7 +142,11 @@ const Slider = ({ children, className, style }) => {
                 flexShrink: 0,
                 border: '1px solid #000',
                 backgroundColor: '#cfe2f3',
+                minHeight: '200px',
               }}
+              tabIndex={-1}
+              aria-hidden={activeElement !== i}
+              key={`s-${i}`}
             >
               {React.cloneElement(c, {
                 style: { ...c.props.style, height: '100%' },
@@ -115,16 +160,7 @@ const Slider = ({ children, className, style }) => {
         onClick={onSelectDot}
         active={(activeElement + children.length - 1) % children.length}
       />
-      <NextButton
-        onClick={() => {
-          setShouldShift(false)
-          if (activeElement < newChildren.length - 1) {
-            setActiveElement(activeElement + 1)
-          } else {
-            setActiveElement(newChildren.length - 1)
-          }
-        }}
-      />
+      <NextButton onClick={onNext} />
     </div>
   )
 }

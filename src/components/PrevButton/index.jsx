@@ -7,7 +7,7 @@ const PrevButton = ({ onClick, className }) => {
     <div
       className={classNames(css`
         position: absolute;
-        top: max(calc(50% - 27px), 100px);
+        top: max(calc(50% - 27px), 73px);
         left: -70px;
         width: 0;
         height: 0;

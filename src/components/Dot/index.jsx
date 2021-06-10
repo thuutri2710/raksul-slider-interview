@@ -4,11 +4,10 @@ import { css } from 'linaria'
 
 const noop = () => {}
 
-export const Dot = ({ key, active = false, onClick = noop }) => {
+export const Dot = ({ active = false, onClick = noop }) => {
   return (
     <li
       onClick={onClick}
-      key={key}
       style={{
         cursor: !active ? 'pointer' : 'default',
         display: 'inline-block',
@@ -39,13 +38,13 @@ export const Dots = ({ number, active, onClick = noop }) => {
         .fill(0)
         .map((d, i) => (
           <Dot
-            key={i}
             active={active === i}
             onClick={() => {
               if (active !== i) {
                 onClick(i + 1)
               }
             }}
+            key={i}
           />
         ))}
     </ul>

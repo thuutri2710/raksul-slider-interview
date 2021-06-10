@@ -22,7 +22,7 @@ function App() {
             align-items: center;
           `}
         >
-          <img src="https://cdn.pixabay.com/photo/2018/11/14/20/50/hd-3816045_960_720.jpg" />
+          1
         </div>
         <div
           className={css`
