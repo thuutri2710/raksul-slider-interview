@@ -14,7 +14,7 @@ const Slider = ({ children, className, style }) => {
   const [distanceDragX, setDistanceDragX] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
   const startDragX = useRef()
-  const threshold = 0.7 * widthSlide
+  const threshold = 0.6 * widthSlide
 
   const translateX = -(widthSlide + 16) * activeElement - 8 + distanceDragX
 
@@ -78,8 +78,8 @@ const Slider = ({ children, className, style }) => {
 
   const onMouseUp = (e) => {
     if (isDragging) {
-      startDragX.current = 0
       setDistanceDragX(0)
+      startDragX.current = 0
       if (distanceDragX < -threshold) {
         onNext()
       } else if (distanceDragX > threshold) {
@@ -88,8 +88,8 @@ const Slider = ({ children, className, style }) => {
         setShouldShift(false)
       }
       document.removeEventListener('mousemove', onMouseMove)
+      setIsDragging(false)
     }
-    setIsDragging(false)
   }
 
   return (
@@ -98,11 +98,13 @@ const Slider = ({ children, className, style }) => {
         className,
         css`
           position: relative;
-          margin: 0 auto;
         `
       )}
+      style={{
+        margin: `0 ${widthSlide > 500 ? 75 : 5}px`,
+      }}
     >
-      <PrevButton onClick={onPrev} />
+      {widthSlide > 500 ? <PrevButton onClick={onPrev} /> : null}
       <div
         ref={slideRef}
         className={css`
@@ -130,27 +132,36 @@ const Slider = ({ children, className, style }) => {
           `}
           style={{
             transition:
-              count !== 2 ? '' : shouldShift ? 'left .2s ease-out' : 'all 1s',
+              count !== 2 ? '' : shouldShift ? 'left 1ms ease-out' : 'all .5s',
             transform: `translate3d(${translateX}px,0,0)`,
           }}
         >
           {newChildren.map((c, i) => (
             <div
-              style={{
-                width: `${widthSlide}px`,
-                margin: '0 8px',
-                flexShrink: 0,
-                border: '1px solid #000',
-                backgroundColor: '#cfe2f3',
-                minHeight: '200px',
-              }}
               tabIndex={-1}
               aria-hidden={activeElement !== i}
               key={`s-${i}`}
+              style={{ height: '100%' }}
             >
-              {React.cloneElement(c, {
-                style: { ...c.props.style, height: '100%' },
-              })}
+              <div
+                tabIndex={-1}
+                style={{
+                  width: `${widthSlide}px`,
+                  margin: '0 8px',
+                  flexShrink: 0,
+                  border: '1px solid #000',
+                  backgroundColor: '#cfe2f3',
+                  height: '100%',
+                }}
+              >
+                {React.cloneElement(c, {
+                  style: {
+                    ...c.props.style,
+                    minHeight: '200px',
+                    height: '100%',
+                  },
+                })}
+              </div>
             </div>
           ))}
         </div>
@@ -160,7 +171,7 @@ const Slider = ({ children, className, style }) => {
         onClick={onSelectDot}
         active={(activeElement + children.length - 1) % children.length}
       />
-      <NextButton onClick={onNext} />
+      {widthSlide > 500 ? <NextButton onClick={onNext} /> : null}
     </div>
   )
 }
