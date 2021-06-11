@@ -73,14 +73,14 @@ const Slider = ({ wrapperWidth, children, className, style }) => {
     }
   }
 
-  const onMouseMove = (e) => {
+  const onMouseMove = useCallback((e) => {
     if (e.type === 'touchmove') {
       const touch = e.touches[0]
       setDistanceDragX(touch.clientX - startDragX.current)
     } else {
       setDistanceDragX(e.clientX - startDragX.current)
     }
-  }
+  }, [])
 
   const onMouseDown = (e) => {
     setIsDragging(true)
@@ -90,8 +90,8 @@ const Slider = ({ wrapperWidth, children, className, style }) => {
     } else {
       startDragX.current = e.clientX
     }
-    document.addEventListener('mousemove', onMouseMove)
-    document.addEventListener('touchmove', onMouseMove)
+    document.onmousemove = onMouseMove
+    document.ontouchmove = onMouseMove
   }
 
   const onMouseUp = (e) => {
@@ -103,10 +103,10 @@ const Slider = ({ wrapperWidth, children, className, style }) => {
       } else {
         setShouldShift(false)
       }
+      document.onmousemove = null
+      document.ontouchmove = null
       setDistanceDragX(0)
       startDragX.current = 0
-      document.removeEventListener('mousemove', onMouseMove)
-      document.removeEventListener('touchmove', onMouseMove)
       setIsDragging(false)
     }
   }
