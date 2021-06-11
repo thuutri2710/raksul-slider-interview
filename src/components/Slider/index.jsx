@@ -5,7 +5,7 @@ import NextButton from '@/components/NextButton'
 import { css } from 'linaria'
 import classNames from 'classnames/bind'
 
-const Slider = ({ children, className, style }) => {
+const Slider = ({ wrapperWidth, children, className, style }) => {
   const [activeElement, setActiveElement] = useState(1)
   const [widthSlide, setWidthSlide] = useState(500)
   const slideRef = useRef(-1)
@@ -113,7 +113,12 @@ const Slider = ({ children, className, style }) => {
         `
       )}
       style={{
-        margin: `0 ${innerWidth > widthSlide + 200 ? 'auto' : '5px'}`,
+        margin: `0 ${
+          wrapperWidth > innerWidth - 200 && innerWidth < 650 ? '5px' : 'auto'
+        }`,
+        maxWidth: `${
+          innerWidth > 650 ? Math.min(wrapperWidth, innerWidth - 200) : 650
+        }px`,
       }}
     >
       {innerWidth > 650 ? <PrevButton onClick={onPrev} /> : null}

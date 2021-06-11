@@ -8,13 +8,8 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div className="App">
-      <Slider
-        className={css`
-          margin-top: 100px !important;
-          max-width: 1080px;
-        `}
-      >
+    <div className="App" style={{ paddingTop: 100 }}>
+      <Slider wrapperWidth={1080}>
         <div
           className={css`
             display: flex;
