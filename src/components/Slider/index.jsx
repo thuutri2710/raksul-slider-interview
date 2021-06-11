@@ -12,6 +12,7 @@ const Slider = ({ wrapperWidth, children, className, style }) => {
   const [shouldShift, setShouldShift] = useState(false)
   const [count, setCount] = useState(0)
   const [distanceDragX, setDistanceDragX] = useState(0)
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth)
   const [isDragging, setIsDragging] = useState(false)
   const startDragX = useRef()
   const threshold = 0.2 * widthSlide
@@ -32,6 +33,12 @@ const Slider = ({ wrapperWidth, children, className, style }) => {
     }
     setWidthSlide(slideRef.current.clientWidth)
   }, [slideRef.current.clientWidth])
+
+  useState(() => {
+    const handleSize = () => setInnerWidth(window.innerWidth)
+    window.addEventListener('resize', handleSize)
+    return () => window.removeEventListener('resize', handleSize)
+  }, [])
 
   const shiftCircular = () => {
     setShouldShift(true)

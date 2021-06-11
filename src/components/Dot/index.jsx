@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import classNames from 'classnames/bind'
 import { css } from 'linaria'
 
@@ -25,11 +25,13 @@ export const Dot = ({ active = false, onClick = noop }) => {
 }
 
 export const Dots = ({ width, number, active, onClick = noop }) => {
+  const ref = useRef()
+  const ulWidth = ref?.current?.clientWidth || width
+
   return (
     <div
       className={classNames(css`
         display: flex;
-        justify-content: center;
         position: absolute;
         bottom: -54px;
         list-style: none;
@@ -38,10 +40,12 @@ export const Dots = ({ width, number, active, onClick = noop }) => {
         overflow-y: scroll;
       `)}
       style={{
+        justifyContent: width >= ulWidth ? 'center' : 'start',
         width: width ? `${width}px` : '100%',
       }}
     >
       <ul
+        ref={ref}
         className={css`
           display: flex;
           margin: 0;
