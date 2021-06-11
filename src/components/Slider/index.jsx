@@ -4,6 +4,7 @@ import PrevButton from '@/components/PrevButton'
 import NextButton from '@/components/NextButton'
 import { css } from 'linaria'
 import classNames from 'classnames/bind'
+import './style.css'
 
 const Slider = ({ wrapperWidth, children, className, style }) => {
   const [activeElement, setActiveElement] = useState(1)
@@ -113,12 +114,7 @@ const Slider = ({ wrapperWidth, children, className, style }) => {
 
   return (
     <div
-      className={classNames(
-        className,
-        css`
-          position: relative;
-        `
-      )}
+      className="slider"
       style={{
         margin: `0 ${
           wrapperWidth > innerWidth - 200 && innerWidth < 650 ? '5px' : 'auto'
@@ -129,15 +125,7 @@ const Slider = ({ wrapperWidth, children, className, style }) => {
       }}
     >
       {innerWidth > 650 ? <PrevButton onClick={onPrev} /> : null}
-      <div
-        ref={slideRef}
-        className={css`
-          overflow: hidden;
-          margin: 0;
-          padding: 0;
-          height: 100%;
-        `}
-      >
+      <div ref={slideRef} className="slider__wrapper">
         <div
           onMouseDown={onMouseDown}
           onMouseUp={onMouseUp}
@@ -145,17 +133,7 @@ const Slider = ({ wrapperWidth, children, className, style }) => {
           onTouchStartCapture={onMouseDown}
           onTouchEndCapture={onMouseUp}
           onTransitionEnd={() => shiftCircular()}
-          className={css`
-            display: flex;
-            align-items: stretch;
-            position: relative;
-            cursor: pointer;
-            height: 100%;
-            top: 0;
-            left: 0;
-            margin-left: auto;
-            margin-right: auto;
-          `}
+          className="slider__inner"
           style={{
             transition:
               count !== 2 ? '' : shouldShift ? 'left 1ms ease-out' : 'all .4s',
@@ -171,13 +149,9 @@ const Slider = ({ wrapperWidth, children, className, style }) => {
             >
               <div
                 tabIndex={-1}
+                className="slider__item"
                 style={{
                   width: `${widthSlide}px`,
-                  margin: '0 8px',
-                  flexShrink: 0,
-                  border: '1px solid #000',
-                  backgroundColor: '#cfe2f3',
-                  height: '100%',
                 }}
               >
                 {React.cloneElement(c, {

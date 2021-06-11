@@ -1,0 +1,30 @@
+.slider {
+  position: relative;
+}
+
+.slider__wrapper {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.slider__inner {
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  cursor: pointer;
+  height: 100%;
+  top: 0;
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.slider__item {
+  margin: 0 8px;
+  flex-shrink: 0;
+  border: 1px solid #000;
+  background-color: #cfe2f3;
+  height: 100%;
+}

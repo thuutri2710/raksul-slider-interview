@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import classNames from 'classnames/bind'
 import { css } from 'linaria'
+import './style.css'
 
 const noop = () => {}
 
@@ -8,17 +9,11 @@ export const Dot = ({ active = false, onClick = noop }) => {
   return (
     <li
       onClick={onClick}
+      className="dot"
       style={{
-        flexShrink: 0,
-        flexGrow: 0,
         cursor: !active ? 'pointer' : 'default',
-        display: 'inline-block',
         border: !active ? '1px solid #000' : '',
-        margin: '0 8px',
-        width: 30,
-        height: 30,
         backgroundColor: active ? '#000' : '#CFE2F3',
-        borderRadius: '50%',
       }}
     />
   )
@@ -30,28 +25,13 @@ export const Dots = ({ width, number, active, onClick = noop }) => {
 
   return (
     <div
-      className={classNames(css`
-        display: flex;
-        position: absolute;
-        bottom: -54px;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        overflow-y: scroll;
-      `)}
+      className="dots"
       style={{
         justifyContent: width >= ulWidth ? 'center' : 'start',
         width: width ? `${width}px` : '100%',
       }}
     >
-      <ul
-        ref={ref}
-        className={css`
-          display: flex;
-          margin: 0;
-          padding: 0;
-        `}
-      >
+      <ul ref={ref} className="dots__wrapper">
         {Array(number)
           .fill(0)
           .map((d, i) => (

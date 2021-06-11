@@ -8,7 +8,7 @@ function App() {
   const [count, setCount] = useState(3)
 
   return (
-    <div className="App" style={{ paddingTop: 100 }}>
+    <div className="App">
       <div style={{ marginBottom: 20 }}>
         <button
           onClick={() => {
@@ -16,14 +16,11 @@ function App() {
               setCount(count - 1)
             }
           }}
-          style={{ fontSize: 16, margin: 4 }}
+          className="btn__count"
         >
           Decrease
         </button>
-        <button
-          onClick={() => setCount(count + 1)}
-          style={{ fontSize: 16, margin: 4 }}
-        >
+        <button className="btn__count" onClick={() => setCount(count + 1)}>
           Increase
         </button>
       </div>

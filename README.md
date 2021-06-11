@@ -3,7 +3,7 @@
 ### Conditions:
 
 - [x] The prototype can be compiled and run locally on any of the latest browsers.
-- [ ] Write your code without using any UI framework.
+- [x] Write your code without using any UI framework.
 - [x] Animation should be done with CSS.
 - [x] The prototype should work for both mobile and desktop
 - [x] The number of images in the banner can be changed dynamically during runtime (at least 3 images).
@@ -34,4 +34,4 @@ Because I have a full-time job so I just do this assignment for 1-2 hours every 
 - [9 June] Init source and create components: dots, basic slider, prev button, next button.
 - [10 June] Handle animation when click prev button, next button and dots.
 - [11 June] Handle drag action and make slider animation smoother.
-- [12 June] Responsive for all screen and writing docs.
+- [12 June] Responsive for all screen and writing docs. Besides, I migrated CSS without UI framework because I missed the requirement.

@@ -1,0 +1,25 @@
+.dots {
+  display: flex;
+  position: absolute;
+  bottom: -54px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: scroll;
+}
+
+.dot__wrapper {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.dot {
+  flex-shrink: 0;
+  flex-grow: 0;
+  display: inline-block;
+  margin: 0 8px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
