@@ -24,36 +24,29 @@ export const Dot = ({ active = false, onClick = noop }) => {
   )
 }
 
-export const Dots = ({ number, active, onClick = noop }) => {
+export const Dots = ({ width, number, active, onClick = noop }) => {
   return (
     <div
       className={classNames(css`
         display: flex;
+        justify-content: center;
         position: absolute;
-        width: 100%;
         bottom: -54px;
         list-style: none;
         margin: 0;
         padding: 0;
         overflow-y: scroll;
       `)}
+      style={{
+        width: width ? `${width}px` : '100%',
+      }}
     >
       <ul
-        style={{
-          display: 'flex',
-          flex: 1,
-          justifyContent: window.innerWidth > 650 ? 'start' : 'center',
-          margin: 0,
-          padding: 0,
-        }}
-        // className={classNames(css`
-        //   position: absolute;
-        //   width: 100%;
-        //   bottom: -58px;
-        //   list-style: none;
-        //   margin: 0;
-        //   padding: 0;
-        // `)}
+        className={css`
+          display: flex;
+          margin: 0;
+          padding: 0;
+        `}
       >
         {Array(number)
           .fill(0)

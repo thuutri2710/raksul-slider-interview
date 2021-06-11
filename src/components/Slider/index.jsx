@@ -66,20 +66,29 @@ const Slider = ({ children, className, style }) => {
     }
   }
 
-  const onMouseMove = useCallback((e) => {
-    setDistanceDragX(e.clientX - startDragX.current)
-  }, [])
+  const onMouseMove = (e) => {
+    if (e.type === 'touchmove') {
+      const touch = e.touches[0]
+      setDistanceDragX(touch.clientX - startDragX.current)
+    } else {
+      setDistanceDragX(e.clientX - startDragX.current)
+    }
+  }
 
   const onMouseDown = (e) => {
     setIsDragging(true)
-    startDragX.current = e.clientX
+    if (e.type === 'touchstart') {
+      const touch = e.touches[0]
+      startDragX.current = touch.clientX
+    } else {
+      startDragX.current = e.clientX
+    }
     document.addEventListener('mousemove', onMouseMove)
+    document.addEventListener('touchmove', onMouseMove)
   }
 
   const onMouseUp = (e) => {
     if (isDragging) {
-      setDistanceDragX(0)
-      startDragX.current = 0
       if (distanceDragX < -threshold) {
         onNext()
       } else if (distanceDragX > threshold) {
@@ -87,7 +96,10 @@ const Slider = ({ children, className, style }) => {
       } else {
         setShouldShift(false)
       }
+      setDistanceDragX(0)
+      startDragX.current = 0
       document.removeEventListener('mousemove', onMouseMove)
+      document.removeEventListener('touchmove', onMouseMove)
       setIsDragging(false)
     }
   }
@@ -101,10 +113,10 @@ const Slider = ({ children, className, style }) => {
         `
       )}
       style={{
-        margin: `0 ${window.innerWidth > 650 ? 75 : 5}px`,
+        margin: `0 ${innerWidth > widthSlide + 200 ? 'auto' : '5px'}`,
       }}
     >
-      {window.innerWidth > 650 ? <PrevButton onClick={onPrev} /> : null}
+      {innerWidth > 650 ? <PrevButton onClick={onPrev} /> : null}
       <div
         ref={slideRef}
         className={css`
@@ -118,6 +130,8 @@ const Slider = ({ children, className, style }) => {
           onMouseDown={onMouseDown}
           onMouseUp={onMouseUp}
           onMouseLeave={onMouseUp}
+          onTouchStartCapture={onMouseDown}
+          onTouchEndCapture={onMouseUp}
           onTransitionEnd={() => shiftCircular()}
           className={css`
             display: flex;
@@ -170,8 +184,9 @@ const Slider = ({ children, className, style }) => {
         number={children.length}
         onClick={onSelectDot}
         active={(activeElement + children.length - 1) % children.length}
+        width={widthSlide}
       />
-      {window.innerWidth > 650 ? <NextButton onClick={onNext} /> : null}
+      {innerWidth > 650 ? <NextButton onClick={onNext} /> : null}
     </div>
   )
 }
