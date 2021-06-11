@@ -25,10 +25,6 @@ Although, Raksul Slider supports for all screen, It must be refresh when resizin
 
 Link [demo](https://www.loom.com/share/e13c75a49f6c49368d6bdd8b06f14cc8)
 
-### Summary
-
-Because I have a full-time job so I just do this assignment for 1-2 hours every every night. It took me 4 day to complete. I try to improve behaviors and test most cases. Hopefully, it makes you satisfied.
-
 ### Changelog:
 
 - [9 June] Init source and create components: dots, basic slider, prev button, next button.
