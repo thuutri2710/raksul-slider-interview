@@ -5,83 +5,43 @@ import Slider from '@/components/Slider'
 import { css } from 'linaria'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(3)
 
   return (
     <div className="App" style={{ paddingTop: 100 }}>
+      <div style={{ marginBottom: 20 }}>
+        <button
+          onClick={() => {
+            if (count > 1) {
+              setCount(count - 1)
+            }
+          }}
+          style={{ fontSize: 16, margin: 4 }}
+        >
+          Decrease
+        </button>
+        <button
+          onClick={() => setCount(count + 1)}
+          style={{ fontSize: 16, margin: 4 }}
+        >
+          Increase
+        </button>
+      </div>
       <Slider wrapperWidth={1080}>
-        <div
-          className={css`
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          `}
-        >
-          1
-        </div>
-        <div
-          className={css`
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          `}
-        >
-          2
-        </div>
-        <div
-          className={css`
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          `}
-        >
-          3
-        </div>
-        <div
-          className={css`
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          `}
-        >
-          4
-        </div>
-        <div
-          className={css`
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          `}
-        >
-          5
-        </div>
-        <div
-          className={css`
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          `}
-        >
-          6
-        </div>
-        <div
-          className={css`
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          `}
-        >
-          7
-        </div>
-        <div
-          className={css`
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          `}
-        >
-          8
-        </div>
+        {Array(count)
+          .fill(0)
+          .map((_, i) => (
+            <div
+              key={`slider-item-${i}`}
+              className={css`
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              `}
+            >
+              {i + 1}
+            </div>
+          ))}
       </Slider>
     </div>
   )
