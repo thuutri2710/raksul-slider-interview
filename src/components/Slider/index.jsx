@@ -7,6 +7,7 @@ import classNames from 'classnames/bind'
 import './style.css'
 
 const Slider = ({ wrapperWidth, children, className, style }) => {
+  // TODO: To many useState here, do we have any way to improve?
   const [activeElement, setActiveElement] = useState(1)
   const [widthSlide, setWidthSlide] = useState(500)
   const slideRef = useRef(-1)
@@ -18,8 +19,12 @@ const Slider = ({ wrapperWidth, children, className, style }) => {
   const startDragX = useRef()
   const threshold = 0.2 * widthSlide
 
+  // FIXME: What are the meaning of '16' and '8'?
+  // Code readability: not really good - Using specific number repeatedly but do not define as a variable.
   const translateX = -(widthSlide + 16) * activeElement - 8 + distanceDragX
 
+  // Nice done circulation :thumbsup: 
+  // Could you explain how did you implement this circulation?
   const newChildren = useMemo(() => [
     children[children.length - 1],
     ...children,
@@ -113,6 +118,8 @@ const Slider = ({ wrapperWidth, children, className, style }) => {
   }
 
   return (
+    // {/* Should not use inline style */}
+    // Code readability: not really good - Using specific number repeatedly but do not define as a variable.
     <div
       className="slider"
       style={{
@@ -124,6 +131,7 @@ const Slider = ({ wrapperWidth, children, className, style }) => {
         }px`,
       }}
     >
+      {/* use media queries instead */}
       {innerWidth > 650 ? <PrevButton onClick={onPrev} /> : null}
       <div ref={slideRef} className="slider__wrapper">
         <div
@@ -137,7 +145,7 @@ const Slider = ({ wrapperWidth, children, className, style }) => {
           style={{
             transition:
               count !== 2 ? '' : shouldShift ? 'left 1ms ease-out' : 'all .4s',
-            transform: `translate3d(${translateX}px,0,0)`,
+            transform: `translate3d(${translateX}px,0,0)`, // FIXME: why 'translate3d'?
           }}
         >
           {newChildren.map((c, i) => (
@@ -166,12 +174,14 @@ const Slider = ({ wrapperWidth, children, className, style }) => {
           ))}
         </div>
       </div>
+      {/* FIXME: the <Dots> was outside of the <Slider> component? */}
       <Dots
         number={children.length}
         onClick={onSelectDot}
         active={(activeElement + children.length - 1) % children.length}
         width={widthSlide}
       />
+      {/* TODO: How could we make PrevButton and NextButton the same component for reuse purpose? */}
       {innerWidth > 650 ? <NextButton onClick={onNext} /> : null}
     </div>
   )

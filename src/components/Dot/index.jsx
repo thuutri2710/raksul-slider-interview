@@ -7,6 +7,7 @@ const noop = () => {}
 
 export const Dot = ({ active = false, onClick = noop }) => {
   return (
+    // {/* Should not use inline style */}
     <li
       onClick={onClick}
       className="dot"
